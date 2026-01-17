@@ -1,0 +1,45 @@
+# Errors
+usage: <red><dark_gray>[Usage]</dark_gray> {usage}
+you-not-player: <red>You are not a player
+other-not-player: <red>{player} is not a player
+track-not-found: <red>That track does not exist
+track-missing-spawns: <red>That track does not have any spawns set
+unknown-track-property: <red>That track does not have a <yellow>{property}</yellow> property
+get-out-of-boat-for-command: <red>Please get out of your boat before using that command
+
+# Join/quit messages
+joined-new: <light_purple><yellow>{player}</yellow> joined for the first time
+joined-new-sound: ui.toast.challenge_complete
+joined-server: <dark_purple><yellow>{player}</yellow> joined the server
+quit-server: <dark_purple><yellow>{player}</yellow> left the server
+joined-track: <gray><yellow>{player}</yellow> joined this track
+quit-track: <gray><yellow>{player}</yellow> left this track
+
+# Staff messages
+reloaded: <dark_aqua>IceCore reloaded
+config-regenerated: <dark_aqua>IceCore config regenerated
+track-created: <dark_aqua>{track} track created
+track-removed: <dark_aqua>That track was removed
+track-property-set: <dark_aqua>That track's <yellow>{property}</yellow> property was updated
+track-spawn-added: <dark_aqua>That track now has a new spawn
+
+# Player messages
+track-teleported: <aqua>Now driving in <yellow>{track}
+
+# Announcements
+announcement-sound: block.note_block.chime
+announcement:
+    - ""
+    - " <gradient:dark_aqua:aqua>|<st>                              </st> <gradient:dark_aqua:aqua>ANNOUNCEMENT</gradient> <st>                            </st>|</gradient>"
+    - ""
+    - " <gray>{announcement}</gray> "
+    - ""
+    - " <gradient:dark_aqua:aqua>|<st>                                                                              </st>|</gradient>"
+    - ""
+
+# Spawn
+spawn:
+    world: hub
+    x: .5
+    y: -60
+    z: .5
