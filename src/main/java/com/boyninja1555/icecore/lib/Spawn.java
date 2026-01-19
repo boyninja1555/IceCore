@@ -22,7 +22,6 @@ public class Spawn {
         if (spawnSection == null)
             return;
 
-        player.getInventory().clear();
         player.addPotionEffect(new PotionEffect(
                 PotionEffectType.INVISIBILITY,
                 PotionEffect.INFINITE_DURATION,

@@ -5,6 +5,7 @@ import com.boyninja1555.icecore.lib.IceMessage;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,11 +14,18 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.Map;
 
-public record RestrictedJoinLeaveMessagesL(IceCore plugin) implements Listener {
+public record JoinLeaveL(IceCore plugin) implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        Entity vehicle = player.getVehicle();
+        IceCore.rp().apply(player);
+
+        if (vehicle != null) {
+            player.leaveVehicle();
+            vehicle.addPassenger(player);
+        }
 
         if (!player.hasPlayedBefore()) {
             Sound sound = Sound.sound(

@@ -4,6 +4,7 @@ import com.boyninja1555.icecore.IceCore;
 import com.boyninja1555.icecore.lib.BaseC;
 import com.boyninja1555.icecore.lib.IceMessage;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,6 +38,7 @@ public class CoreC extends BaseC {
                 plugin.saveDefaultConfig();
                 plugin.reloadConfig();
                 IceCore.tracks().load();
+                Bukkit.getOnlinePlayers().forEach(p -> IceCore.rp().apply(p));
                 user.sendMessage(IceMessage.get(IceMessage.RELOADED));
             }
 

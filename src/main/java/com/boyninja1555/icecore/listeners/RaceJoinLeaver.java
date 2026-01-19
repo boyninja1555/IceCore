@@ -2,24 +2,20 @@ package com.boyninja1555.icecore.listeners;
 
 import com.boyninja1555.icecore.IceCore;
 import com.boyninja1555.icecore.lib.IceMessage;
+import com.boyninja1555.icecore.lib.abilities.lib.Abilities;
 import org.bukkit.entity.Boat;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
 
 public record RaceJoinLeaver(IceCore plugin) implements Listener {
-
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        IceCore.spawn().teleport(event.getPlayer());
-    }
 
     @EventHandler
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
@@ -42,6 +38,11 @@ public record RaceJoinLeaver(IceCore plugin) implements Listener {
         if (!(event.getVehicle() instanceof Boat) || !(event.getEntered() instanceof Player player))
             return;
 
+        player.getInventory().clear();
+        IceCore.abilities().getAll().forEach(ability -> {
+            ItemStack item = Abilities.toItem(ability);
+            player.give(item);
+        });
         player.getWorld().getPlayers().forEach(p -> p.sendMessage(IceMessage.get(IceMessage.JOINED_TRACK, Map.of("player", player.getName()))));
     }
 
@@ -52,6 +53,7 @@ public record RaceJoinLeaver(IceCore plugin) implements Listener {
 
         player.getWorld().getPlayers().forEach(p -> p.sendMessage(IceMessage.get(IceMessage.QUIT_TRACK, Map.of("player", player.getName()))));
         player.leaveVehicle();
+        player.getInventory().clear();
         boat.remove();
         IceCore.spawn().teleport(player);
     }

@@ -1,3 +1,8 @@
+resource-pack: ""
+resource-pack-prompt: This pack adds only custom textures/models and music
+resource-pack-required: true
+resource-pack-namespace: icepack
+
 # Errors
 usage: <red><dark_gray>[Usage]</dark_gray> {usage}
 you-not-player: <red>You are not a player
@@ -6,6 +11,7 @@ track-not-found: <red>That track does not exist
 track-missing-spawns: <red>That track does not have any spawns set
 unknown-track-property: <red>That track does not have a <yellow>{property}</yellow> property
 get-out-of-boat-for-command: <red>Please get out of your boat before using that command
+cooldown: <red>Please wait <yellow>{time}
 
 # Join/quit messages
 joined-new: <light_purple><yellow>{player}</yellow> joined for the first time

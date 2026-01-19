@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public enum IceMessage {
+    RESOURCE_PACK_PROMPT,
+
     USAGE,
     YOU_NOT_PLAYER,
     OTHER_NOT_PLAYER,
@@ -21,6 +23,7 @@ public enum IceMessage {
     TRACK_MISSING_SPAWNS,
     UNKNOWN_TRACK_PROPERTY,
     GET_OUT_OF_BOAT_FOR_COMMAND,
+    COOLDOWN,
 
     JOINED_NEW,
     JOINED_SERVER,
