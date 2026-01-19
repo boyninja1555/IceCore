@@ -22,7 +22,6 @@ out/
 *.war
 *.nar
 *.ear
-*.zip
 *.tar.gz
 *.rar
 
@@ -111,6 +110,3 @@ buildNumber.properties
 
 # Common working directory
 run/
-
-# Project-specific
-*.zip
