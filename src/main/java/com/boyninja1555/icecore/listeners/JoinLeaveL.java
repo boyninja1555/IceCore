@@ -5,7 +5,6 @@ import com.boyninja1555.icecore.lib.IceMessage;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,13 +18,8 @@ public record JoinLeaveL(IceCore plugin) implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        Entity vehicle = player.getVehicle();
         IceCore.rp().apply(player);
-
-        if (vehicle != null) {
-            player.leaveVehicle();
-            vehicle.addPassenger(player);
-        }
+        IceCore.spawn().teleport(player);
 
         if (!player.hasPlayedBefore()) {
             Sound sound = Sound.sound(
@@ -36,7 +30,6 @@ public record JoinLeaveL(IceCore plugin) implements Listener {
             );
             event.joinMessage(IceMessage.get(IceMessage.JOINED_NEW, Map.of("player", player.getName())));
             Bukkit.getOnlinePlayers().forEach(p -> p.playSound(sound));
-            IceCore.spawn().teleport(player);
             return;
         }
 

@@ -53,7 +53,6 @@ public record RaceJoinLeaver(IceCore plugin) implements Listener {
 
         player.getWorld().getPlayers().forEach(p -> p.sendMessage(IceMessage.get(IceMessage.QUIT_TRACK, Map.of("player", player.getName()))));
         player.leaveVehicle();
-        player.getInventory().clear();
         boat.remove();
         IceCore.spawn().teleport(player);
     }

@@ -30,6 +30,7 @@ public class Spawn {
                 false,
                 false
         ));
+        player.getInventory().clear();
         player.teleport(Location.deserialize(spawnSection.getValues(false)));
     }
 
