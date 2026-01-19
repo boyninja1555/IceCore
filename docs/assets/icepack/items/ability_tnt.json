@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "icepack:item/tnt"
+    "model": "icepack:item/ability_tnt"
   }
 }

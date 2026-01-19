@@ -33,6 +33,7 @@ public class IceCore extends JavaPlugin {
         FileConfiguration config = getConfig();
         rp = new IceRP(
                 config.getString("resource-pack", ""),
+                config.getString("resource-pack-hash", ""),
                 IceMessage.get(IceMessage.RESOURCE_PACK_PROMPT),
                 config.getBoolean("resource-pack-required", false)
         );

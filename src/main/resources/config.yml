@@ -1,4 +1,5 @@
-resource-pack: ""
+resource-pack: "https://boyninja1555.github.io/IceCore/IcePack.zip"
+resource-pack-hash: 97092ac305bd7f9b9409741a488ea5d9ad2639b2
 resource-pack-prompt: This pack adds only custom textures/models and music
 resource-pack-required: true
 resource-pack-namespace: icepack
