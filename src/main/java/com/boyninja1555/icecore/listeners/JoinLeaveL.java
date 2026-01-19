@@ -36,6 +36,7 @@ public record JoinLeaveL(IceCore plugin) implements Listener {
             );
             event.joinMessage(IceMessage.get(IceMessage.JOINED_NEW, Map.of("player", player.getName())));
             Bukkit.getOnlinePlayers().forEach(p -> p.playSound(sound));
+            IceCore.spawn().teleport(player);
             return;
         }
 

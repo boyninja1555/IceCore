@@ -10,7 +10,7 @@ public record IceRP(String url, String hash, Component prompt, boolean required)
     public void apply(Player player) {
         player.setResourcePack(
                 UUID.randomUUID(),
-                url,
+                url + "?abc=" + UUID.randomUUID(),
                 sha1FromHex(hash),
                 prompt,
                 required
