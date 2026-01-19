@@ -42,7 +42,7 @@ public class Abilities {
             meta.itemName(ability.name());
             meta.setItemModel(NamespacedKey.fromString(
                     config.getString("resource-pack-namespace", "unknown")
-                            + ":"
+                            + ":item/"
                             + ability.id()
             ));
         });
