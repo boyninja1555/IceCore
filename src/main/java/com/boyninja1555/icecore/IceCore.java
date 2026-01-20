@@ -7,6 +7,7 @@ import com.boyninja1555.icecore.lib.*;
 import com.boyninja1555.icecore.lib.abilities.TntA;
 import com.boyninja1555.icecore.lib.abilities.lib.Abilities;
 import com.boyninja1555.icecore.lib.abilities.lib.AbilityKey;
+import com.boyninja1555.icecore.lib.obu.OpenBoatUtilsBridge;
 import com.boyninja1555.icecore.listeners.AbilityL;
 import com.boyninja1555.icecore.listeners.RaceJoinLeaver;
 import com.boyninja1555.icecore.listeners.JoinLeaveL;
@@ -53,6 +54,7 @@ public class IceCore extends JavaPlugin {
 
         getServer().getMessenger().registerIncomingPluginChannel(this, OpenBoatUtilsBridge.CHANNEL, obu);
         getServer().getMessenger().registerOutgoingPluginChannel(this, OpenBoatUtilsBridge.CHANNEL);
+        getServer().getPluginManager().registerEvents(obu, this);
 
         JoinLeaveL joinLeaveL = new JoinLeaveL(this);
         getServer().getPluginManager().registerEvents(joinLeaveL, this);

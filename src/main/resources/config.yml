@@ -31,6 +31,7 @@ hidden-message: <dark_aqua><hover:show_text:"Often messages from other worlds"><
 
 # Player messages
 track-teleported: <aqua>Now driving in <yellow>{track}
+download-obu: <aqua><yellow>Hey there!</yellow> It seems you joined without <click:open_url:"https://modrinth.com/mod/openboatutils?version=1.21.4#download"><yellow><underlined>OpenBoatUtils</underlined></yellow></click>. Some tracks may be completely inaccessible...
 
 # Announcements
 announcement-sound: block.note_block.chime

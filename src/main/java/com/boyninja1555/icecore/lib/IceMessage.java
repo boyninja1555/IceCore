@@ -41,6 +41,7 @@ public enum IceMessage {
     HIDDEN_MESSAGE,
 
     TRACK_TELEPORTED,
+    DOWNLOAD_OBU,
 
     ANNOUNCEMENT;
 

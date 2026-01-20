@@ -22,6 +22,9 @@ public record JoinLeaveL(IceCore plugin) implements Listener {
         IceCore.rp().apply(player);
         IceCore.spawn().teleport(player);
 
+        if (!IceCore.obu().hasOBU(player))
+            player.sendMessage(IceMessage.get(IceMessage.DOWNLOAD_OBU));
+
         if (!player.hasPlayedBefore()) {
             Sound sound = Sound.sound(
                     Key.key("minecraft", plugin.getConfig().getString("joined-new-sound", "entity.villager.no")),

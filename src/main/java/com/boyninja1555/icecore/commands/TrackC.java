@@ -49,6 +49,7 @@ public class TrackC extends BaseC {
                 randomSpawn.getYaw(),
                 randomSpawn.getPitch()
         ));
+        boat.setInvulnerable(true);
         boat.addPassenger(player);
         player.sendMessage(IceMessage.get(IceMessage.TRACK_TELEPORTED, Map.of("track", track.name())));
     }

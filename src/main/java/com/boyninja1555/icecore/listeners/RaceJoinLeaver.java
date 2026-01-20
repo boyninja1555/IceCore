@@ -3,6 +3,7 @@ package com.boyninja1555.icecore.listeners;
 import com.boyninja1555.icecore.IceCore;
 import com.boyninja1555.icecore.lib.IceMessage;
 import com.boyninja1555.icecore.lib.abilities.lib.Abilities;
+import com.boyninja1555.icecore.lib.obu.OBUClientboundPackets;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Boat;
 import org.bukkit.entity.Player;
@@ -28,11 +29,6 @@ public record RaceJoinLeaver(IceCore plugin) implements Listener {
     }
 
     @EventHandler
-    public void onEntityDamage(EntityDamageByEntityEvent event) {
-        event.setCancelled(true);
-    }
-
-    @EventHandler
     public void onVehicleEnter(VehicleEnterEvent event) {
         if (!(event.getVehicle() instanceof Boat) || !(event.getEntered() instanceof Player player))
             return;
@@ -43,8 +39,9 @@ public record RaceJoinLeaver(IceCore plugin) implements Listener {
             player.give(item);
         });
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            IceCore.obu().sendStep(player, 1.2f);
-            IceCore.obu().sendSlippery(player, .98f, "minecraft:ice,minecraft:packed_ice,minecraft:blue_ice");
+            IceCore.obu().sendFloat(player, OBUClientboundPackets.SET_STEP_HEIGHT, 1.2f);
+            IceCore.obu().sendFloat(player, OBUClientboundPackets.SET_BOAT_JUMP_FORCE, .2f);
+            IceCore.obu().sendBoolean(player, OBUClientboundPackets.SET_AIR_CONTROL, true);
         }, 20L);
     }
 
@@ -57,8 +54,7 @@ public record RaceJoinLeaver(IceCore plugin) implements Listener {
         boat.remove();
         IceCore.spawn().teleport(player);
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            IceCore.obu().sendStep(player, 0f);
-            IceCore.obu().sendSlippery(player, .98f, "");
+            IceCore.obu().send(player, OBUClientboundPackets.RESET);
         }, 20L);
     }
 }
