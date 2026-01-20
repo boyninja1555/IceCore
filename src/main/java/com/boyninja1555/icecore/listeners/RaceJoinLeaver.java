@@ -3,6 +3,7 @@ package com.boyninja1555.icecore.listeners;
 import com.boyninja1555.icecore.IceCore;
 import com.boyninja1555.icecore.lib.IceMessage;
 import com.boyninja1555.icecore.lib.abilities.lib.Abilities;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Boat;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -41,6 +42,10 @@ public record RaceJoinLeaver(IceCore plugin) implements Listener {
             ItemStack item = Abilities.toItem(ability);
             player.give(item);
         });
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            IceCore.obu().sendStep(player, 1.2f);
+            IceCore.obu().sendSlippery(player, .98f, "minecraft:ice,minecraft:packed_ice,minecraft:blue_ice");
+        }, 20L);
     }
 
     @EventHandler
@@ -51,5 +56,9 @@ public record RaceJoinLeaver(IceCore plugin) implements Listener {
         player.leaveVehicle();
         boat.remove();
         IceCore.spawn().teleport(player);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            IceCore.obu().sendStep(player, 0f);
+            IceCore.obu().sendSlippery(player, .98f, "");
+        }, 20L);
     }
 }

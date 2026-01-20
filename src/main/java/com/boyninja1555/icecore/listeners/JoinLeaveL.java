@@ -18,6 +18,7 @@ public record JoinLeaveL(IceCore plugin) implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        player.setInvulnerable(true);
         IceCore.rp().apply(player);
         IceCore.spawn().teleport(player);
 

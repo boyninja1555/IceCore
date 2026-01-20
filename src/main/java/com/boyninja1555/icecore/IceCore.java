@@ -23,6 +23,7 @@ public class IceCore extends JavaPlugin {
     private static Tracks tracks;
     private static Spawn spawn;
     private static Abilities abilities;
+    private static OpenBoatUtilsBridge obu;
 
     @Override
     public void onEnable() {
@@ -48,6 +49,10 @@ public class IceCore extends JavaPlugin {
         spawn = new Spawn(this);
         abilities = new Abilities(this);
         abilities.create(new TntA());
+        obu = new OpenBoatUtilsBridge(this);
+
+        getServer().getMessenger().registerIncomingPluginChannel(this, OpenBoatUtilsBridge.CHANNEL, obu);
+        getServer().getMessenger().registerOutgoingPluginChannel(this, OpenBoatUtilsBridge.CHANNEL);
 
         JoinLeaveL joinLeaveL = new JoinLeaveL(this);
         getServer().getPluginManager().registerEvents(joinLeaveL, this);
@@ -80,5 +85,9 @@ public class IceCore extends JavaPlugin {
 
     public static Abilities abilities() {
         return abilities;
+    }
+
+    public static OpenBoatUtilsBridge obu() {
+        return obu;
     }
 }
