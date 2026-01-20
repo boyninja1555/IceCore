@@ -3,3 +3,9 @@ version: "0.0.0"
 main: com.boyninja1555.icecore.IceCore
 api-version: "1.21"
 authors: [ boyninja1555 ]
+
+dependencies:
+    server:
+        PlaceholderAPI:
+            load: BEFORE
+            required: true

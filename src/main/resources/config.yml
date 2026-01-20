@@ -19,8 +19,6 @@ joined-new: <light_purple><yellow>{player}</yellow> joined for the first time
 joined-new-sound: ui.toast.challenge_complete
 joined-server: <dark_purple><yellow>{player}</yellow> joined the server
 quit-server: <dark_purple><yellow>{player}</yellow> left the server
-joined-track: <gray><yellow>{player}</yellow> joined this track
-quit-track: <gray><yellow>{player}</yellow> left this track
 
 # Staff messages
 reloaded: <dark_aqua>IceCore reloaded
@@ -29,6 +27,7 @@ track-created: <dark_aqua>{track} track created
 track-removed: <dark_aqua>That track was removed
 track-property-set: <dark_aqua>That track's <yellow>{property}</yellow> property was updated
 track-spawn-added: <dark_aqua>That track now has a new spawn
+hidden-message: <dark_aqua><hover:show_text:"Often messages from other worlds"><bold>Hidden</bold></hover></dark_aqua> {prefix}{player}{suffix} <dark_gray>»</dark_gray> {message}
 
 # Player messages
 track-teleported: <aqua>Now driving in <yellow>{track}

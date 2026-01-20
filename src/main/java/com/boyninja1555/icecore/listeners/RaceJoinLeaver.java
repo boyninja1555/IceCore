@@ -13,8 +13,6 @@ import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Map;
-
 public record RaceJoinLeaver(IceCore plugin) implements Listener {
 
     @EventHandler
@@ -43,7 +41,6 @@ public record RaceJoinLeaver(IceCore plugin) implements Listener {
             ItemStack item = Abilities.toItem(ability);
             player.give(item);
         });
-        player.getWorld().getPlayers().forEach(p -> p.sendMessage(IceMessage.get(IceMessage.JOINED_TRACK, Map.of("player", player.getName()))));
     }
 
     @EventHandler
@@ -51,7 +48,6 @@ public record RaceJoinLeaver(IceCore plugin) implements Listener {
         if (!(event.getVehicle() instanceof Boat boat) || !(event.getExited() instanceof Player player))
             return;
 
-        player.getWorld().getPlayers().forEach(p -> p.sendMessage(IceMessage.get(IceMessage.QUIT_TRACK, Map.of("player", player.getName()))));
         player.leaveVehicle();
         boat.remove();
         IceCore.spawn().teleport(player);

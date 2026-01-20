@@ -1,6 +1,9 @@
 package com.boyninja1555.icecore.lib.abilities.lib;
 
 import com.boyninja1555.icecore.IceCore;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -40,6 +43,11 @@ public class Abilities {
         item.editPersistentDataContainer(d -> d.set(AbilityKey.get(), PersistentDataType.STRING, ability.id()));
         item.editMeta(meta -> {
             meta.itemName(ability.name());
+            meta.lore(List.of(Component.empty()
+                    .decoration(TextDecoration.ITALIC, false)
+                    .append(Component.text("Right click ", NamedTextColor.AQUA))
+                    .append(Component.text("to use", NamedTextColor.DARK_AQUA))
+            ));
             meta.setItemModel(NamespacedKey.fromString(
                     config.getString("resource-pack-namespace", "unknown")
                             + ":ability_"

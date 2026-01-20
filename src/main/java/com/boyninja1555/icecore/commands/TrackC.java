@@ -60,7 +60,7 @@ public class TrackC extends BaseC {
             return;
         }
 
-        boolean isStaff = player.hasPermission(IcePerm.get(IcePermType.ROLE, "staff"));
+        boolean isStaff = player.hasPermission(IcePerm.STAFF_ROLE);
         if (args.length == 0) {
             player.sendMessage(IceMessage.get(IceMessage.USAGE, Map.of("usage", "/" + mainLabel + " <track" + (isStaff ? "|action" : "") + ">" + (isStaff ? " <track-id?>" : ""))));
             return;
@@ -128,6 +128,7 @@ public class TrackC extends BaseC {
 
                 if (args[2].equals("addspawn")) {
                     track.spawns().add(player.getLocation());
+                    IceCore.tracks().save();
                     player.sendMessage(IceMessage.get(IceMessage.TRACK_SPAWN_ADDED));
                     return;
                 }
@@ -169,7 +170,7 @@ public class TrackC extends BaseC {
                 .map(Track::id)
                 .toList();
 
-        boolean isStaff = source.getSender().hasPermission(IcePerm.get(IcePermType.ROLE, "staff"));
+        boolean isStaff = source.getSender().hasPermission(IcePerm.STAFF_ROLE);
         if (args.length == 0)
             if (isStaff) {
                 List<String> subCommands = new ArrayList<>(trackIds);

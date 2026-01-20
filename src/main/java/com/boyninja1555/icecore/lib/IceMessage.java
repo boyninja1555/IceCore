@@ -1,10 +1,13 @@
 package com.boyninja1555.icecore.lib;
 
 import com.boyninja1555.icecore.IceCore;
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -28,8 +31,6 @@ public enum IceMessage {
     JOINED_NEW,
     JOINED_SERVER,
     QUIT_SERVER,
-    JOINED_TRACK,
-    QUIT_TRACK,
 
     RELOADED,
     CONFIG_REGENERATED,
@@ -37,6 +38,7 @@ public enum IceMessage {
     TRACK_REMOVED,
     TRACK_PROPERTY_SET,
     TRACK_SPAWN_ADDED,
+    HIDDEN_MESSAGE,
 
     TRACK_TELEPORTED,
 
@@ -55,21 +57,29 @@ public enum IceMessage {
         IceMessage.plugin = plugin;
     }
 
-    public static Component get(IceMessage message, Map<String, String> placeholders) {
+    public static Component get(IceMessage message, Map<String, String> placeholders, Player player) {
         FileConfiguration config = plugin.getConfig();
         String path = message.toString().toLowerCase().replaceAll("_", "-");
 
         if (root != null)
             path = root + "." + path;
 
-        return replacePlaceholders(config.getRichMessage(path, DEFAULT), placeholders);
+        return replacePlaceholders(config.getRichMessage(path, DEFAULT), placeholders, player);
+    }
+
+    public static Component get(IceMessage message, Map<String,  String> placeholders) {
+        return IceMessage.get(message, placeholders, null);
+    }
+
+    public static Component get(IceMessage message, Player player) {
+        return IceMessage.get(message, new HashMap<>(), player);
     }
 
     public static Component get(IceMessage message) {
         return IceMessage.get(message, new HashMap<>());
     }
 
-    public static List<Component> getAsLines(IceMessage message, Map<String, String> placeholders) {
+    public static List<Component> getAsLines(IceMessage message, Map<String, String> placeholders, Player player) {
         FileConfiguration config = plugin.getConfig();
         String path = message.toString().toLowerCase().replace("_", "-");
 
@@ -93,22 +103,30 @@ public enum IceMessage {
             else
                 comp = DEFAULT;
 
-            result.add(replacePlaceholders(comp, placeholders));
+            result.add(replacePlaceholders(comp, placeholders, player));
         }
 
         return result;
+    }
+
+    public static List<Component> getAsLines(IceMessage message, Map<String, String> placeholders) {
+        return IceMessage.getAsLines(message, new HashMap<>(), null);
+    }
+
+    public static List<Component> getAsLines(IceMessage message, Player player) {
+        return IceMessage.getAsLines(message, new HashMap<>(), player);
     }
 
     public static List<Component> getAsLines(IceMessage message) {
         return IceMessage.getAsLines(message, new HashMap<>());
     }
 
-    private static Component replacePlaceholders(Component old, Map<String, String> placeholders) {
-        final Component[] result = new Component[]{old};
+    private static Component replacePlaceholders(Component old, Map<String, String> placeholders, Player player) {
+        final Component[] result = new Component[]{MiniMessage.miniMessage().deserialize(PlaceholderAPI.setPlaceholders(player, MiniMessage.miniMessage().serialize(old)))};
         placeholders.forEach((id, replacement) -> result[0] = result[0].replaceText(TextReplacementConfig
                 .builder()
                 .match(Pattern.quote("{" + id + "}"))
-                .replacement(replacement)
+                .replacement(MiniMessage.miniMessage().deserialize(PlaceholderAPI.setPlaceholders(player, replacement)))
                 .build()
         ));
         return result[0];

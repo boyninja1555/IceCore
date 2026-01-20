@@ -9,11 +9,31 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
 public record AbilityL(IceCore plugin) implements Listener {
+
+    @EventHandler
+    public void onItemMove(PlayerDropItemEvent event) {
+        if (!event.getItemDrop().getItemStack().getType().equals(Material.FISHING_ROD))
+            return;
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+        ItemStack item = event.getCurrentItem();
+
+        if (item == null || !item.getType().equals(Material.FISHING_ROD))
+            return;
+
+        event.setCancelled(true);
+    }
 
     @EventHandler
     public void onPlayerFish(PlayerFishEvent event) {
