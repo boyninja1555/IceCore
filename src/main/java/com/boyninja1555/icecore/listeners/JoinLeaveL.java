@@ -22,8 +22,10 @@ public record JoinLeaveL(IceCore plugin) implements Listener {
         IceCore.rp().apply(player);
         IceCore.spawn().teleport(player);
 
-        if (!IceCore.obu().hasOBU(player))
-            player.sendMessage(IceMessage.get(IceMessage.DOWNLOAD_OBU));
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            if (!IceCore.obu().hasOBU(player))
+                player.sendMessage(IceMessage.get(IceMessage.DOWNLOAD_OBU));
+        }, 60L); // ~3 seconds
 
         if (!player.hasPlayedBefore()) {
             Sound sound = Sound.sound(
