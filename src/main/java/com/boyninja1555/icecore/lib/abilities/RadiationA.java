@@ -4,7 +4,6 @@ import com.boyninja1555.icecore.lib.abilities.lib.Ability;
 import com.boyninja1555.icecore.lib.abilities.lib.AbilityParticles;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
