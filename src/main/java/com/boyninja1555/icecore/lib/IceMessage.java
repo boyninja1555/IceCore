@@ -111,7 +111,7 @@ public enum IceMessage {
     }
 
     public static List<Component> getAsLines(IceMessage message, Map<String, String> placeholders) {
-        return IceMessage.getAsLines(message, new HashMap<>(), null);
+        return IceMessage.getAsLines(message, placeholders, null);
     }
 
     public static List<Component> getAsLines(IceMessage message, Player player) {

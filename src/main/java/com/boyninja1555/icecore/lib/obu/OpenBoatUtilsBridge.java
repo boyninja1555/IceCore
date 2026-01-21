@@ -67,6 +67,13 @@ public class OpenBoatUtilsBridge implements PluginMessageListener, Listener {
         player.sendPluginMessage(plugin, CHANNEL, out.toByteArray());
     }
 
+    public void sendInt(Player player, OBUClientboundPackets type, int value) {
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeShort(type.value());
+        out.writeInt(value);
+        player.sendPluginMessage(plugin, CHANNEL, out.toByteArray());
+    }
+
     public void sendFloat(Player player, OBUClientboundPackets type, float value) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeShort(type.value());

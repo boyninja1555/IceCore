@@ -39,9 +39,10 @@ public record RaceJoinLeaver(IceCore plugin) implements Listener {
             player.give(item);
         });
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            IceCore.obu().sendFloat(player, OBUClientboundPackets.SET_STEP_HEIGHT, 1.2f);
-            IceCore.obu().sendFloat(player, OBUClientboundPackets.SET_BOAT_JUMP_FORCE, .2f);
-            IceCore.obu().sendBoolean(player, OBUClientboundPackets.SET_AIR_CONTROL, true);
+            // IceCore.obu().sendFloat(player, OBUClientboundPackets.SET_STEP_HEIGHT, 1.2f);
+            // IceCore.obu().sendFloat(player, OBUClientboundPackets.SET_BOAT_JUMP_FORCE, .2f);
+            // IceCore.obu().sendBoolean(player, OBUClientboundPackets.SET_AIR_CONTROL, true);
+            IceCore.obu().sendInt(player, OBUClientboundPackets.SET_MODE, 22); // BA_JANKLESS
         }, 20L);
     }
 
