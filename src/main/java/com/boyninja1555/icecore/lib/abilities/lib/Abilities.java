@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +34,12 @@ public class Abilities {
                 .getFirst();
     }
 
-    public void create(Ability ability) {
-        abilities.add(ability);
+    public void create(Class<? extends Ability> ability) {
+        try {
+            abilities.add(ability.getConstructor().newInstance());
+        } catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException ex) {
+            plugin.getLogger().severe("Could not create new ability! " + ex.getMessage());
+        }
     }
 
     public static ItemStack toItem(Ability ability) {

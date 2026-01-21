@@ -1,8 +1,10 @@
 package com.boyninja1555.icecore.lib.abilities;
 
 import com.boyninja1555.icecore.lib.abilities.lib.Ability;
+import com.boyninja1555.icecore.lib.abilities.lib.AbilityParticles;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Particle;
 import org.bukkit.entity.Boat;
 import org.bukkit.entity.Player;
 
@@ -23,12 +25,19 @@ public class TntA extends Ability {
 
     @Override
     public int cooldownTicks() {
-        return 20 * 10;
+        return 20 * 10; // 10 seconds
     }
 
     @Override
     public void execute(Player player) {
-        double radius = 15;
+        float radius = 15f;
+        float particleGap = 1.5f;
+        for (float r = 0; r < radius; r += .25f)
+            AbilityParticles.builder()
+                    .radius(r)
+                    .particleGap(particleGap)
+                    .buildAndSpawn(player.getLocation(), Particle.EXPLOSION);
+
         var center = player.getLocation().toVector();
         player.getWorld()
                 .getNearbyEntities(player.getLocation(), radius, radius, radius, entity -> entity instanceof Boat)
@@ -48,6 +57,7 @@ public class TntA extends Ability {
                     double strength = (radius - dist) / radius;
                     boat.setVelocity(dir.normalize().multiply(10 * strength));
                 });
+
         player.getWorld().playSound(
                 player.getLocation(),
                 "entity.generic.explode",

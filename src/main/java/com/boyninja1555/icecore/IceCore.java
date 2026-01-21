@@ -4,6 +4,7 @@ import com.boyninja1555.icecore.commands.AnnounceC;
 import com.boyninja1555.icecore.commands.CoreC;
 import com.boyninja1555.icecore.commands.TrackC;
 import com.boyninja1555.icecore.lib.*;
+import com.boyninja1555.icecore.lib.abilities.RadiationA;
 import com.boyninja1555.icecore.lib.abilities.TntA;
 import com.boyninja1555.icecore.lib.abilities.lib.Abilities;
 import com.boyninja1555.icecore.lib.abilities.lib.AbilityKey;
@@ -14,7 +15,6 @@ import com.boyninja1555.icecore.listeners.AbilityL;
 import com.boyninja1555.icecore.listeners.RaceJoinLeaver;
 import com.boyninja1555.icecore.listeners.JoinLeaveL;
 import com.boyninja1555.icecore.listeners.RestrictedMessagesL;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -54,7 +54,8 @@ public class IceCore extends JavaPlugin {
         tracksLastJoined = new TracksLastJoined();
         spawn = new Spawn(this);
         abilities = new Abilities(this);
-        abilities.create(new TntA());
+        abilities.create(TntA.class);
+        abilities.create(RadiationA.class);
         obu = new OpenBoatUtilsBridge(this);
 
         IcePAPI papiExpansion = new IcePAPI(this);
