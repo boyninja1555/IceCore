@@ -33,6 +33,9 @@ public class BoostA extends Ability {
 
     @Override
     public void execute(Player player) {
+        if (!(player.getVehicle() instanceof Boat boat) || !boat.isOnGround())
+            return;
+
         float radius = 1.5f;
         float particleGap = .5f;
         for (float r = 0; r < radius; r += .25f)
@@ -40,9 +43,6 @@ public class BoostA extends Ability {
                     .radius(r)
                     .particleGap(particleGap)
                     .buildAndSpawn(player.getLocation(), Particle.EXPLOSION);
-
-        if (!(player.getVehicle() instanceof Boat boat) || !boat.isOnGround())
-            return;
 
         player.getWorld().playSound(
                 player.getLocation(),
