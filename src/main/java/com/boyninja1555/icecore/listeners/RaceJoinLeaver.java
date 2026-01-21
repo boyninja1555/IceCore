@@ -35,7 +35,7 @@ public record RaceJoinLeaver(IceCore plugin) implements Listener {
         player.getInventory().clear();
         IceCore.abilities().getAll().forEach(ability -> {
             ItemStack item = Abilities.toItem(ability);
-            player.give(item);
+            player.getInventory().setItem(ability.slot() - 1, item);
         });
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             // IceCore.obu().sendFloat(player, OBUClientboundPackets.SET_STEP_HEIGHT, 1.2f);

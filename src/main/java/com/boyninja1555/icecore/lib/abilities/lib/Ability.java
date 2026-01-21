@@ -7,6 +7,9 @@ import org.jetbrains.annotations.ApiStatus;
 public abstract class Ability {
 
     @ApiStatus.OverrideOnly
+    public abstract int slot();
+
+    @ApiStatus.OverrideOnly
     public abstract String id();
 
     @ApiStatus.OverrideOnly

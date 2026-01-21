@@ -11,6 +11,11 @@ import org.bukkit.entity.Player;
 public class TntA extends Ability {
 
     @Override
+    public int slot() {
+        return 4;
+    }
+
+    @Override
     public String id() {
         return "tnt";
     }

@@ -4,6 +4,7 @@ import com.boyninja1555.icecore.commands.AnnounceC;
 import com.boyninja1555.icecore.commands.CoreC;
 import com.boyninja1555.icecore.commands.TrackC;
 import com.boyninja1555.icecore.lib.*;
+import com.boyninja1555.icecore.lib.abilities.BoostA;
 import com.boyninja1555.icecore.lib.abilities.RadiationA;
 import com.boyninja1555.icecore.lib.abilities.TntA;
 import com.boyninja1555.icecore.lib.abilities.lib.Abilities;
@@ -56,6 +57,7 @@ public class IceCore extends JavaPlugin {
         abilities = new Abilities(this);
         abilities.create(TntA.class);
         abilities.create(RadiationA.class);
+        abilities.create(BoostA.class);
         obu = new OpenBoatUtilsBridge(this);
 
         IcePAPI papiExpansion = new IcePAPI(this);
