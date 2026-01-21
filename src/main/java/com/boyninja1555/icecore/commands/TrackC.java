@@ -51,6 +51,7 @@ public class TrackC extends BaseC {
         ));
         boat.setInvulnerable(true);
         boat.addPassenger(player);
+        IceCore.tracksLastJoined().set(player, track);
         player.sendMessage(IceMessage.get(IceMessage.TRACK_TELEPORTED, Map.of("track", track.name())));
     }
 

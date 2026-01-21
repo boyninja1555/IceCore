@@ -8,10 +8,13 @@ import com.boyninja1555.icecore.lib.abilities.TntA;
 import com.boyninja1555.icecore.lib.abilities.lib.Abilities;
 import com.boyninja1555.icecore.lib.abilities.lib.AbilityKey;
 import com.boyninja1555.icecore.lib.obu.OpenBoatUtilsBridge;
+import com.boyninja1555.icecore.lib.papi.IcePAPI;
+import com.boyninja1555.icecore.lib.papi.IcePlaceholders;
 import com.boyninja1555.icecore.listeners.AbilityL;
 import com.boyninja1555.icecore.listeners.RaceJoinLeaver;
 import com.boyninja1555.icecore.listeners.JoinLeaveL;
 import com.boyninja1555.icecore.listeners.RestrictedMessagesL;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,6 +25,7 @@ public class IceCore extends JavaPlugin {
     private static IceRP rp;
     private static CommandReg commands;
     private static Tracks tracks;
+    private static TracksLastJoined tracksLastJoined;
     private static Spawn spawn;
     private static Abilities abilities;
     private static OpenBoatUtilsBridge obu;
@@ -47,10 +51,15 @@ public class IceCore extends JavaPlugin {
         commands.registerAll();
         tracks = new Tracks(this, new File(getDataFolder(), "tracks.yml"));
         tracks.load();
+        tracksLastJoined = new TracksLastJoined();
         spawn = new Spawn(this);
         abilities = new Abilities(this);
         abilities.create(new TntA());
         obu = new OpenBoatUtilsBridge(this);
+
+        IcePAPI papiExpansion = new IcePAPI(this);
+        IcePlaceholders.registerPlaceholders(this, papiExpansion);
+        papiExpansion.register();
 
         getServer().getMessenger().registerIncomingPluginChannel(this, OpenBoatUtilsBridge.CHANNEL, obu);
         getServer().getMessenger().registerOutgoingPluginChannel(this, OpenBoatUtilsBridge.CHANNEL);
@@ -79,6 +88,10 @@ public class IceCore extends JavaPlugin {
 
     public static Tracks tracks() {
         return tracks;
+    }
+
+    public static TracksLastJoined tracksLastJoined() {
+        return tracksLastJoined;
     }
 
     public static Spawn spawn() {
