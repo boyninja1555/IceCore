@@ -22,6 +22,9 @@ public class Spawn {
         if (spawnSection == null)
             return;
 
+        if (player.isInsideVehicle())
+            player.leaveVehicle();
+
         player.addPotionEffect(new PotionEffect(
                 PotionEffectType.INVISIBILITY,
                 PotionEffect.INFINITE_DURATION,

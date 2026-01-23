@@ -50,7 +50,7 @@ public class Abilities {
             meta.itemName(ability.name());
             meta.lore(List.of(Component.empty()
                     .decoration(TextDecoration.ITALIC, false)
-                    .append(Component.text("Right click ", NamedTextColor.AQUA))
+                    .append(Component.text("Right click or drop ", NamedTextColor.AQUA))
                     .append(Component.text("to use", NamedTextColor.DARK_AQUA))
             ));
             meta.setItemModel(NamespacedKey.fromString(

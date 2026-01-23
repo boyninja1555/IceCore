@@ -1,9 +1,11 @@
 package com.boyninja1555.icecore.lib.abilities;
 
+import com.boyninja1555.icecore.IceCore;
 import com.boyninja1555.icecore.lib.abilities.lib.Ability;
 import com.boyninja1555.icecore.lib.abilities.lib.AbilityParticles;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.Boat;
 import org.bukkit.entity.Player;
@@ -32,7 +34,7 @@ public class BoostA extends Ability {
     }
 
     @Override
-    public void execute(Player player) {
+    public void execute(IceCore plugin, Player player) {
         if (!(player.getVehicle() instanceof Boat boat) || !boat.isOnGround())
             return;
 
@@ -52,7 +54,6 @@ public class BoostA extends Ability {
         );
 
         Vector velocity = boat.getVelocity();
-        velocity.setY(velocity.getY() + 1f);
-        boat.setVelocity(velocity);
+        Bukkit.getScheduler().runTask(plugin, () -> boat.setVelocity(new Vector(velocity.getX(), velocity.getY() + 1f, velocity.getZ())));
     }
 }

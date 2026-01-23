@@ -17,22 +17,56 @@ import org.bukkit.persistence.PersistentDataType;
 
 public record AbilityL(IceCore plugin) implements Listener {
 
+    private void useAbility(Player player, ItemStack item, Runnable preUse, Runnable onFail) {
+        PersistentDataContainerView data = item.getPersistentDataContainer();
+
+        if (!data.has(AbilityKey.get())) {
+            onFail.run();
+            return;
+        }
+
+        Ability ability = IceCore.abilities().get(data.get(AbilityKey.get(), PersistentDataType.STRING));
+
+        if (ability == null) {
+            onFail.run();
+            return;
+        }
+
+        preUse.run();
+        ability.execute(plugin, player);
+        player.setCooldown(Abilities.toItem(ability), ability.cooldownTicks());
+    }
+
     @EventHandler
-    public void onItemMove(PlayerDropItemEvent event) {
-        if (!event.getItemDrop().getItemStack().getType().equals(Material.FISHING_ROD))
+    public void onDropItem(PlayerDropItemEvent event) {
+        Player player = event.getPlayer();
+        ItemStack item = event.getItemDrop().getItemStack();
+
+        if (item.getType() != Material.FISHING_ROD)
             return;
 
-        event.setCancelled(true);
+        useAbility(
+                player,
+                item,
+                () -> event.setCancelled(true),
+                () -> {}
+        );
     }
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
         ItemStack item = event.getCurrentItem();
 
         if (item == null || !item.getType().equals(Material.FISHING_ROD))
             return;
 
-        event.setCancelled(true);
+        useAbility(
+                player,
+                item,
+                () -> event.setCancelled(true),
+                () -> event.setCancelled(false)
+        );
     }
 
     @EventHandler
@@ -40,21 +74,14 @@ public record AbilityL(IceCore plugin) implements Listener {
         Player player = event.getPlayer();
         ItemStack item = player.getEquipment().getItemInMainHand();
 
-        if (event.getState() != PlayerFishEvent.State.FISHING || item.getType() != Material.FISHING_ROD)
+        if (!event.getState().equals(PlayerFishEvent.State.FISHING) || !item.getType().equals(Material.FISHING_ROD))
             return;
 
-        PersistentDataContainerView data = item.getPersistentDataContainer();
-
-        if (!data.has(AbilityKey.get()))
-            return;
-
-        Ability ability = IceCore.abilities().get(data.get(AbilityKey.get(), PersistentDataType.STRING));
-
-        if (ability == null)
-            return;
-
-        event.setCancelled(true);
-        ability.execute(player);
-        player.setCooldown(Abilities.toItem(ability), ability.cooldownTicks());
+        useAbility(
+                player,
+                item,
+                () -> event.setCancelled(true),
+                () -> event.setCancelled(false)
+        );
     }
 }

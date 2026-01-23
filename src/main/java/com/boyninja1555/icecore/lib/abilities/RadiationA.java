@@ -1,5 +1,6 @@
 package com.boyninja1555.icecore.lib.abilities;
 
+import com.boyninja1555.icecore.IceCore;
 import com.boyninja1555.icecore.lib.abilities.lib.Ability;
 import com.boyninja1555.icecore.lib.abilities.lib.AbilityParticles;
 import net.kyori.adventure.text.Component;
@@ -32,7 +33,7 @@ public class RadiationA extends Ability {
     }
 
     @Override
-    public void execute(Player player) {
+    public void execute(IceCore plugin, Player player) {
         float radius = 15f;
         float particleGap = .5f;
         for (float r = 0; r < radius; r += .25f)
