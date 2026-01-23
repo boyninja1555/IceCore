@@ -26,7 +26,7 @@ public class TracksLastJoined {
         Track result = tracksLastJoined.get(player);
 
         if (result == null)
-            return new Track("unknown", "Unknown", new ArrayList<>());
+            return new Track("unknown", "Unknown", new ArrayList<>(), false);
 
         return result;
     }

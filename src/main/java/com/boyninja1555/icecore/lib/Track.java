@@ -12,11 +12,13 @@ public class Track {
     private String id;
     private String name;
     private List<Location> spawns;
+    private boolean usesOBU;
 
-    public Track(String id, String name, List<Location> spawns) {
+    public Track(String id, String name, List<Location> spawns, boolean usesOBU) {
         this.id = id;
         this.name = name;
         this.spawns = spawns;
+        this.usesOBU = usesOBU;
     }
 
     public void serializeAndPut(ConfigurationSection parent) {
@@ -24,6 +26,7 @@ public class Track {
         section.set("id", id);
         section.set("name", name);
         section.set("spawns", spawns.stream().map(Location::serialize).toList());
+        section.set("uses-obu", usesOBU);
     }
 
     public static Track deserialize(ConfigurationSection section) {
@@ -42,7 +45,8 @@ public class Track {
         return new Track(
                 section.getString("id"),
                 section.getString("name"),
-                spawns
+                spawns,
+                section.getBoolean("uses-obu")
         );
     }
 
@@ -58,6 +62,10 @@ public class Track {
         return spawns;
     }
 
+    public boolean usesOBU() {
+        return usesOBU;
+    }
+
     public void id(String id) {
         this.id = id;
     }
@@ -68,5 +76,9 @@ public class Track {
 
     public void spawns(List<Location> spawns) {
         this.spawns = spawns;
+    }
+
+    public void usesOBU(boolean usesOBU) {
+        this.usesOBU = usesOBU;
     }
 }
